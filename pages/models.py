@@ -222,19 +222,3 @@ class TemperatureReading(models.Model):
     class Meta:
         managed = False
         db_table = 'temperature_reading'
-
-"""conn = pymysql.connect(
-    host= 'farmassist.cfeynesfcij3.us-east-1.rds.amazonaws.com',
-    port= '3306',
-    db= 'farmAssist',
-    user= 'admin',
-    password= '64686468Mo$',
-    )
-
-# Create your models here.
-def get_tank_lvl():
-    cur=conn.cursor()
-    cur.execute("SELECT * FROM tank_reading ORDER BY time DESC LIMIT 1")
-    tank_lvl = cur.fetchall()
-    return tank_lvl
-"""
