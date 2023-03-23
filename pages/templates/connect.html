@@ -1,0 +1,233 @@
+<!DOCTYPE html>\
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width,
+    initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/connect-style.css' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon2.ico">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <title>FarmAssist</title>
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <a href="index.html" class="nav-branding">FarmAssist</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{% url 'pages:home' %}" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'pages:connect' %}" class="nav-link">Connect</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">Account</a>
+            </li>
+            {% if user.is_authenticated %} 
+
+            <li class="nav-item">
+               <a href="{% url 'pages:logout' %}" class="nav-link">Logout</a>
+           </li>
+           <li class="nav-item">
+               <a class="nav-link" href="#">Welcome, {{user.username}}</a>
+           </li>
+
+           {% else %} 
+
+           <li class="nav-item">
+               <a href="{% url 'pages:login' %}" class="nav-link">Login</a>
+           </li>
+
+           {% endif %} 
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+<script src="{% static 'script.js' %}"></script>
+<div class="popup-btn-conatiner">
+    <a href="#form-container" class="popup-btn">Add New Event</a>
+    </div>
+<div class="form-container" id="form-container">
+<div class="contact-box">
+  <div class="left"></div>
+  <div class="right">
+  
+  <h2>Create An Event</h2> <a href="#" class="popup-close">&times;</a>
+   <form action="https://formsubmit.co/patriciobb99@hotmail.com" method="POST">
+     <input type="hidden" class="field"  name="_captcha" value="false">
+      <input type="text" class="field" name="title" placeholder="Title" required>
+      <input type="text" class="field"  name="location" placeholder="Location" required>
+      <input type="text" class="field"  name="time" placeholder="Time" required>
+      <input type="text" class="field"  name="date" placeholder="Date" required>
+       <textarea class="field area" placeholder="Event Details..." required></textarea>
+      <button type="submit" class="btn">Create</button>
+   </form>
+   </div>
+</div>
+</div>
+<section class="portfolio defaultMargin" id="portfolio">
+      <div class="title__container">
+        <h2>Connect with other farmers</h2>
+        <p>Check out what others have been planting.</p>
+      </div>
+      <div class="container">
+        <div class="design">
+          <div class="background"></div>
+          <div class="portfolio__container">
+           <a href="#popup1">
+           <span class="link"></span>
+           </a>
+            <h3>User23998</h3>
+            <p>Meet-up</p>
+            <div class="image">
+              <img src="{% static 'img/profile.jpg' %}" alt="" />
+            </div>
+          </div>
+        </div>
+        <div class="popup1" id="popup1">
+        <div class="popup-dialog">
+           <section class="popup-content">
+            <div class="popup-header">
+                <p>Connect with User23998 </p>
+                <a href="#" class="popup-close">&times;</a>
+            </div>
+        
+              <div class="popup-body">
+                <div class="popup-image"></div>
+                <div class="popup-text">
+                <p><b>Location: </b> Northeastern</p><br>
+                <p> <b>Time: </b>12:00</p>
+                <p><b>Date: </b>TDB</p>
+                <p><b>Details: </b> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis saepe veritatis, velit ea ex sint, libero officiis repudiandae autem, praesentium consequatur atque, enim blanditiis aut consequuntur ad. Necessitatibus, iste, magnam.</p><br>
+                 <textarea class="field area" placeholder="Add a Comment..." required></textarea>
+                 <button type="submit" class="comment-btn">Comment</button>
+            </div>
+              </div>
+               
+           </section>
+        </div>
+    </div>
+       <div class="design">
+          <div class="background"></div>
+        <div class="portfolio__container">
+         <a href="#popup2">
+           <span class="link"></span>
+           </a>
+          <h3>User23998</h3>
+            <p>Meet-up</p>
+            <div class="image">
+              <img src="{% static 'img/profile.jpg' %}" alt="" />
+            </div>
+        </div>
+        </div>
+        <div class="popup2" id="popup2">
+        <div class="popup-dialog">
+           <section class="popup-content">
+            <div class="popup-header">
+                <p>Connect with User23998 </p>
+                <a href="#" class="popup-close">&times;</a>
+            </div>
+        
+              <div class="popup-body">
+                <div class="popup-image"></div>
+                <div class="popup-text">
+                <p></p>
+            </div>
+              </div>
+               
+           </section>
+        </div>
+    </div>
+        <div class="design">
+          <div class="background"></div>
+        <div class="portfolio__container">
+         <a href="#popup3">
+           <span class="link"></span>
+           </a>
+          <h3>User23998</h3>
+            <p>Meet-up</p>
+            <div class="image">
+              <img src="{% static 'img/profile.jpg' %}" alt="" />
+            </div>
+        </div>
+        </div>
+        <div class="popup3" id="popup3">
+        <div class="popup-dialog">
+           <section class="popup-content">
+            <div class="popup-header">
+                <p>Connect with User23998 </p>
+                <a href="#" class="popup-close">&times;</a>
+            </div>
+        
+              <div class="popup-body">
+                <div class="popup-image"></div>
+                <div class="popup-text">
+                <p></p>
+            </div>
+              </div>
+               
+           </section>
+        </div>
+    </div>
+        <div class="design">
+          <div class="background"></div>
+        <div class="portfolio__container">
+         <a href="#popup4">
+           <span class="link"></span>
+           </a>
+          <h3>User23998</h3>
+            <p>Meet-up</p>
+            <div class="image">
+              <img src="{% static 'img/profile.jpg' %}" alt="" />
+            </div>
+        </div>
+          </div>
+          <div class="popup4" id="popup4">
+        <div class="popup-dialog">
+           <section class="popup-content">
+            <div class="popup-header">
+                <p>Connect with User23998 </p>
+                <a href="#" class="popup-close">&times;</a>
+            </div>
+        
+              <div class="popup-body">
+                <div class="popup-image"></div>
+                <div class="popup-text">
+                <p></p>
+            </div>
+              </div>
+               
+           </section>
+        </div>
+    </div>
+        <div class="portfolio__container">
+          <h3>User23998</h3>
+            <p>Meet-up</p>
+            <div class="image">
+              <img src="{% static 'img/profile.jpg' %}" alt="" />
+            </div>
+        </div>
+        <div class="design right">
+          <div class="background"></div>
+          <div class="portfolio__container">
+            <h3>User23998</h3>
+            <p>Meet-up</p>
+            <div class="image">
+              <img src="{% static 'img/profile.jpg' %}" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+</body>
+</html>

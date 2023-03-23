@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width,
+    initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home-style.css' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon2.ico">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <title>FarmAssist</title>
+    <style>
+        .table {
+          font-family: Arial, Helvetica, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+          margin-top: 30px;
+          margin-bottom: 30px;
+        }
+        
+        .table td, .table th {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: center;
+        }
+        
+        .table tr:nth-child(even){background-color: #f2f2f2;}
+        
+        .table tr:hover {background-color: #ddd;}
+        
+        .table th {
+          padding-top: 12px;
+          padding-bottom: 12px;
+          max-width: 50px;
+          text-align: center;
+          background-color: #04AA6D;
+          color: white;
+        }
+        </style>
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <a href="index.html" class="nav-branding">FarmAssist</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{% url 'pages:home' %}" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'pages:connect' %}" class="nav-link">Connect</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">Account</a>
+            </li>
+            {% if user.is_authenticated %} 
+
+             <li class="nav-item">
+                <a href="{% url 'pages:logout' %}" class="nav-link">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Welcome, {{user.username}}</a>
+            </li>
+
+            {% else %} 
+
+            <li class="nav-item">
+                <a href="{% url 'pages:login' %}" class="nav-link">Login</a>
+            </li>
+
+            {% endif %} 
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+<script src="{% static 'script.js' %}"></script>
+<div class="container">
+    <div class="row mt-4">
+        <div class="col">
+            <!--Table-->
+            <h2>Water Tank</h2>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Time</th>
+                        <th scope="col">Reading</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in tank %}
+                    <tr>
+                        <th scope="row">{{ i.time }}</th>
+                        <td>{{ i.reading }}</td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+            <!--END TABLE-->
+            <h2>Moisture Readings</h2>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Time</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Reading</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in moisture %}
+                    <tr>
+                        <th scope="row">{{ i.time }}</th>
+                        <td>{{ i.location }}</td>
+                        <td>{{ i.reading }}</td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+            <!--END TABLE-->
+            <h2>Temperature Readings</h2>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Time</th>
+                        <th scope="col">Reading</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in temperature %}
+                    <tr>
+                        <th scope="row">{{ i.time }}</th>
+                        <td>{{ i.reading }}</td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+            <!--END TABLE-->
+
+            <h2>Lighting Readings</h2>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Time</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Reading</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in lighting %}
+                    <tr>
+                        <th scope="row">{{ i.time }}</th>
+                        <td>{{ i.location }}</td>
+                        <td>{{ i.reading }}</td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+            <!--END TABLE-->
+
+            <h2>Humidity Readings</h2>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Time</th>
+                        <th scope="col">Reading</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in humidity %}
+                    <tr>
+                        <th scope="row">{{ i.time }}</th>
+                        <td>{{ i.reading }}</td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+            <!--END TABLE-->
+        </div>
+    </div>
+</div>
+</body>
+</html>
