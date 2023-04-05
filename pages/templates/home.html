@@ -39,6 +39,228 @@
           background-color: #04AA6D;
           color: white;
         }
+        #selector {
+    margin-top: 10%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+h2{
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.field{
+    width: 30%;
+    max-width: 200px;
+    padding: 0.5rem 1rem;
+    border: 2px solid rgba(0, 0, 0, 0);
+    background-color: rgba(230, 230, 230, 0.6);
+    margin-bottom: 22px;
+    transition: .3s;
+}
+
+select {
+    font-size: 1.5rem;
+    padding 1em 5em 1em 1.5em;
+    background: #4d5061;
+    color: white;
+    border: 0;
+}
+
+.custom-select{
+    position: relative;
+    margin-bottom: 10px;
+    margin-top: 10px;
+   
+}
+
+.field:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.field:focus{
+    background-color: #fff;
+    border: 2px solid rgba(30, 85, 250, 0.47);
+}
+
+.area{
+    min-height: 150px;
+}
+
+.btn{
+    width: 50%;
+    max-width: 300px;
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+    background-color: #C0C0C0;
+    outline: none;
+    border: none;
+    color: #fff;
+    transition: 0.3s;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.btn:hover{
+    background-color: gray;
+}
+
+
+.popup-btn-conatiner {
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    display: block;
+    height: auto;
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+   
+}
+
+.popup-btn {
+    text-decoration: none;
+    padding: 1rem;
+    background: black;
+    border-radius: 5px;
+    color: white;
+
+}
+
+.popup-btn{
+  transition: 0.3s ease-out;
+}
+
+.popup-btn:hover {
+    color: #C0C0C0;
+}
+
+.addEvent {
+    display:none;
+    background: rgba(0, 0, 0, .8);
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+ 
+}
+
+.form-container:target {
+    display: flex;
+}
+
+
+.form-container {
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 50px 100px;
+}
+
+.form-container:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.contact-box{
+    max-width: 850px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0px 0px 19px 5px rgba(0, 0, 0, 0.19);
+}
+
+
+
+h2{
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+h2:after{
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 4px;
+    width: 50px;
+    border-radius: 2px;
+}
+
+
+.field{
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: 2px solid rgba(0, 0, 0, 0);
+    background-color: rgba(230, 230, 230, 0.6);
+    margin-bottom: 22px;
+    transition: .3s;
+}
+
+.field:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.field:focus{
+    background-color: #fff;
+    border: 2px solid rgba(30, 85, 250, 0.47);
+}
+
+.area{
+    min-height: 150px;
+}
+
+.btn{
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+    background-color: #C0C0C0;
+    outline: none;
+    border: none;
+    color: #fff;
+    transition: 0.3s;
+}
+
+.btn:hover{
+    background-color: gray;
+}
+
+@media screen and (max-width:880px){
+    .contact-box{
+        grid-template-columns: 1fr;
+    }
+   
+    .left{
+        height: 200px;
+    }
+}
+
+.popup-close {
+    color: black;
+    text-decoration: none;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 40px;
+    margin-bottom: 30px;
+    margin-top: 50px;
+}
         </style>
 </head>
 <body>
@@ -51,9 +273,6 @@
             </li>
             <li class="nav-item">
                 <a href="{% url 'pages:connect' %}" class="nav-link">Connect</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">Account</a>
             </li>
             {% if user.is_authenticated %} 
 
@@ -80,11 +299,100 @@
         </div>
     </nav>
 </header>
+<div class="popup-btn-conatiner">
+    <a href="#form-container" class="popup-btn">Edit Produce Selection</a>
+    </div>
+<div class="form-container" id="form-container">
+
+<div class="contact-box">
+    <h2>Change your produce selection</h2> <a href="#" class="popup-close">&times;</a>
+
+    <div id="selector">
+
+   <form action="{% url 'pages:change_crops' %}" method="POST">
+    {% csrf_token %}
+     <h4>Change slot 1:</h4>
+<div class="custom-select" >
+  <select name="slot1">
+    <option value=0>Select produce:</option>
+    <option value="Broccoli">Broccoli</option>
+    <option value="Carrots">Carrots</option>
+    <option value="Kale">Kale</option>
+    <option value="Potatoes">Potatoes</option>
+    <option value="Soy Beans">Soy Beans</option>
+  </select>
+</div>
+      <h4>Change slot 2:</h4>
+      <div class="custom-select">
+  <select name="slot2">
+    <option value=0>Select produce:</option>
+    <option value="Broccoli">Broccoli</option>
+    <option value="Carrots">Carrots</option>
+    <option value="Kale">Kale</option>
+    <option value="Potatoes">Potatoes</option>
+    <option value="Soy Beans">Soy Beans</option>
+  </select>
+</div>
+       <h4>Change slot 3:</h4>
+      <div class="custom-select">
+  <select name="slot3">
+    <option value=0>Select produce:</option>
+    <option value="Broccoli">Broccoli</option>
+    <option value="Carrots">Carrots</option>
+    <option value="Kale">Kale</option>
+    <option value="Potatoes">Potatoes</option>
+    <option value="Soy Beans">Soy Beans</option>
+  </select>
+</div>
+      <h4>Change slot 4:</h4>
+      <div class="custom-select">
+  <select name="slot4">
+    <option value=0>Select produce:</option>
+    <option value="Broccoli">Broccoli</option>
+    <option value="Carrots">Carrots</option>
+    <option value="Kale">Kale</option>
+    <option value="Potatoes">Potatoes</option>
+    <option value="Soy Beans">Soy Beans</option>
+  </select>
+</div>
+      <button type="submit" class="btn">Update</button>
+   </form>
+       
+   
+</div>
+   
+</div>
+</div>
 <script src="{% static 'script.js' %}"></script>
 <div class="container">
     <div class="row mt-4">
         <div class="col">
             <!--Table-->
+            <h2>Your Crops</h2>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Location</th>
+                        <th scope="col">Crop</th>
+                        <th scope="col">Plant Date</th>
+                        <th scope="col">Estimated Harvest Date</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in crop %}
+                    <tr>
+                        <th scope="row">{{ i.location }}</th>
+                        <td>{{ i.type.name }}</td>
+                        <td>{{ i.plantdate }}</td>
+                        <td>{{ i.harvestdate }}</td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+            <!--END TABLE-->
             <h2>Water Tank</h2>
             <table class="table">
                 <thead class="thead-dark">
@@ -105,7 +413,6 @@
                 </tbody>
 
             </table>
-            <!--END TABLE-->
             <h2>Moisture Readings</h2>
             <table class="table">
                 <thead class="thead-dark">

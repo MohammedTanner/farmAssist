@@ -1,5 +1,5 @@
-<!DOCTYPE html>\
 {% load static %}
+<!DOCTYPE html>\
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,9 +12,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <title>FarmAssist</title>
+<style>
+  .comment-section ul li{
+    color: black;
+    background-color: white;
+  }
+</style>
 </head>
 <body>
-<header>
+  <header>
     <nav class="navbar">
         <a href="index.html" class="nav-branding">FarmAssist</a>
         <ul class="nav-menu">
@@ -24,25 +30,22 @@
             <li class="nav-item">
                 <a href="{% url 'pages:connect' %}" class="nav-link">Connect</a>
             </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">Account</a>
-            </li>
             {% if user.is_authenticated %} 
 
+             <li class="nav-item">
+                <a href="{% url 'pages:logout' %}" class="nav-link">Logout</a>
+            </li>
             <li class="nav-item">
-               <a href="{% url 'pages:logout' %}" class="nav-link">Logout</a>
-           </li>
-           <li class="nav-item">
-               <a class="nav-link" href="#">Welcome, {{user.username}}</a>
-           </li>
+                <a class="nav-link" href="#">Welcome, {{user.username}}</a>
+            </li>
 
-           {% else %} 
+            {% else %} 
 
-           <li class="nav-item">
-               <a href="{% url 'pages:login' %}" class="nav-link">Login</a>
-           </li>
+            <li class="nav-item">
+                <a href="{% url 'pages:login' %}" class="nav-link">Login</a>
+            </li>
 
-           {% endif %} 
+            {% endif %} 
         </ul>
         <div class="hamburger">
             <span class="bar"></span>
@@ -62,52 +65,116 @@
   <div class="right">
   
   <h2>Create An Event</h2> <a href="#" class="popup-close">&times;</a>
-   <form action="https://formsubmit.co/patriciobb99@hotmail.com" method="POST">
+   <form action="{% url 'pages:create_event' %}" method="POST">
+    {% csrf_token %}
      <input type="hidden" class="field"  name="_captcha" value="false">
       <input type="text" class="field" name="title" placeholder="Title" required>
       <input type="text" class="field"  name="location" placeholder="Location" required>
-      <input type="text" class="field"  name="time" placeholder="Time" required>
-      <input type="text" class="field"  name="date" placeholder="Date" required>
-       <textarea class="field area" placeholder="Event Details..." required></textarea>
+      <input type="text" class="field"  name="time" placeholder="hh:mm" required>
+      <input type="text" class="field"  name="date" placeholder="YYYY-MM-DD" required>
+       <input type="text" class ="textarea" placeholder="Event Details..." name="description" required>
       <button type="submit" class="btn">Create</button>
    </form>
    </div>
 </div>
 </div>
+
 <section class="portfolio defaultMargin" id="portfolio">
-      <div class="title__container">
-        <h2>Connect with other farmers</h2>
-        <p>Check out what others have been planting.</p>
-      </div>
-      <div class="container">
-        <div class="design">
-          <div class="background"></div>
-          <div class="portfolio__container">
-           <a href="#popup1">
-           <span class="link"></span>
-           </a>
-            <h3>User23998</h3>
-            <p>Meet-up</p>
-            <div class="image">
-              <img src="{% static 'img/profile.jpg' %}" alt="" />
-            </div>
-          </div>
+  <div class="title__container">
+    <h2>Meetups and Events</h2>
+    <p>Check out nearby meetups and events.</p>
+  </div>
+
+  <div class="container">
+  {% for i in meetup %}
+    <div class="design">
+      <div class="background"></div>
+      <div class="portfolio__container">
+       <a href="#popup_{{ i.title }}">
+       <span class="link"></span>
+       </a>
+        <h3>{{ i.title }}</h3>
+        <p>Location: {{ i.location }} </p>
+        <p>Time: {{ i.starttime }} {{ i.date }} </p>
+        <p>{{ i.description }}</p>
         </div>
-        <div class="popup1" id="popup1">
+      </div>
+      <div class="popup1" id="popup_{{ i.title }}">
         <div class="popup-dialog">
            <section class="popup-content">
             <div class="popup-header">
-                <p>Connect with User23998 </p>
+                <p>Connect with {{ i.username }} </p>
                 <a href="#" class="popup-close">&times;</a>
             </div>
         
               <div class="popup-body">
                 <div class="popup-image"></div>
                 <div class="popup-text">
-                <p><b>Location: </b> Northeastern</p><br>
-                <p> <b>Time: </b>12:00</p>
-                <p><b>Date: </b>TDB</p>
-                <p><b>Details: </b> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis saepe veritatis, velit ea ex sint, libero officiis repudiandae autem, praesentium consequatur atque, enim blanditiis aut consequuntur ad. Necessitatibus, iste, magnam.</p><br>
+                <p>{{ i.title }}</p><br>
+                <p> <b>Location: </b>{{ i.location }}</p>
+                <p><b>About: </b>{{ i.description }}</p><br>
+                <p><b>Comments: </b></p><br>
+                <div class="comment-section">
+                  {% for k in comment %}
+                  {% if k.post.postid == i.postid %}
+                  <ul>
+                    <li><b>{{ k.username.username }}</b><br>
+                    {{ k.content }} </li>
+                  </ul>
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <form action="{% url 'pages:add_comment' %}" method="POST">
+                  {% csrf_token %}
+                   <input type="hidden" class="field"  name="_captcha" value="false">
+                   <input type="hidden" class="field" name="post" value={{ i.postid }}>
+                     <input type="text" class ="textarea" placeholder="Add a Comment..." name="comment" required>
+                    <button type="submit" class="comment-btn">Comment</button>
+                 </form>
+            </div>
+              </div>
+               
+           </section>
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+  </section>
+
+<section class="portfolio defaultMargin" id="portfolio">
+      <div class="title__container">
+        <h2>Connect with other farmers</h2>
+        <p>Check out what others have been planting.</p>
+      </div>
+      <div class="container">
+      {% for i in users %}
+        <div class="design">
+          <div class="background"></div>
+          <div class="portfolio__container">
+           <a href="#popup_{{ i.username }}">
+           <span class="link"></span>
+           </a>
+            <h3>{{ i.username }}</h3>
+            <p>{{ i.email }}</p>
+            <div class="image">
+              <img src="{% static 'img/profile.jpg' %}" alt="" />
+            </div>
+          </div>
+        </div>
+        <div class="popup1" id="popup_{{ i.username }}">
+        <div class="popup-dialog">
+           <section class="popup-content">
+            <div class="popup-header">
+                <p>Connect with {{ i.username }} </p>
+                <a href="#" class="popup-close">&times;</a>
+            </div>
+        
+              <div class="popup-body">
+                <div class="popup-image"></div>
+                <div class="popup-text">
+                <p><b>Name: </b> {{ i.first_name }}</p><br>
+                <p> <b>Email: </b>{{ i.email }}</p>
+                <p><b>About: </b> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis saepe veritatis, velit ea ex sint, libero officiis repudiandae autem, praesentium consequatur atque, enim blanditiis aut consequuntur ad. Necessitatibus, iste, magnam.</p><br>
                  <textarea class="field area" placeholder="Add a Comment..." required></textarea>
                  <button type="submit" class="comment-btn">Comment</button>
             </div>
@@ -116,118 +183,7 @@
            </section>
         </div>
     </div>
-       <div class="design">
-          <div class="background"></div>
-        <div class="portfolio__container">
-         <a href="#popup2">
-           <span class="link"></span>
-           </a>
-          <h3>User23998</h3>
-            <p>Meet-up</p>
-            <div class="image">
-              <img src="{% static 'img/profile.jpg' %}" alt="" />
-            </div>
-        </div>
-        </div>
-        <div class="popup2" id="popup2">
-        <div class="popup-dialog">
-           <section class="popup-content">
-            <div class="popup-header">
-                <p>Connect with User23998 </p>
-                <a href="#" class="popup-close">&times;</a>
-            </div>
-        
-              <div class="popup-body">
-                <div class="popup-image"></div>
-                <div class="popup-text">
-                <p></p>
-            </div>
-              </div>
-               
-           </section>
-        </div>
-    </div>
-        <div class="design">
-          <div class="background"></div>
-        <div class="portfolio__container">
-         <a href="#popup3">
-           <span class="link"></span>
-           </a>
-          <h3>User23998</h3>
-            <p>Meet-up</p>
-            <div class="image">
-              <img src="{% static 'img/profile.jpg' %}" alt="" />
-            </div>
-        </div>
-        </div>
-        <div class="popup3" id="popup3">
-        <div class="popup-dialog">
-           <section class="popup-content">
-            <div class="popup-header">
-                <p>Connect with User23998 </p>
-                <a href="#" class="popup-close">&times;</a>
-            </div>
-        
-              <div class="popup-body">
-                <div class="popup-image"></div>
-                <div class="popup-text">
-                <p></p>
-            </div>
-              </div>
-               
-           </section>
-        </div>
-    </div>
-        <div class="design">
-          <div class="background"></div>
-        <div class="portfolio__container">
-         <a href="#popup4">
-           <span class="link"></span>
-           </a>
-          <h3>User23998</h3>
-            <p>Meet-up</p>
-            <div class="image">
-              <img src="{% static 'img/profile.jpg' %}" alt="" />
-            </div>
-        </div>
-          </div>
-          <div class="popup4" id="popup4">
-        <div class="popup-dialog">
-           <section class="popup-content">
-            <div class="popup-header">
-                <p>Connect with User23998 </p>
-                <a href="#" class="popup-close">&times;</a>
-            </div>
-        
-              <div class="popup-body">
-                <div class="popup-image"></div>
-                <div class="popup-text">
-                <p></p>
-            </div>
-              </div>
-               
-           </section>
-        </div>
-    </div>
-        <div class="portfolio__container">
-          <h3>User23998</h3>
-            <p>Meet-up</p>
-            <div class="image">
-              <img src="{% static 'img/profile.jpg' %}" alt="" />
-            </div>
-        </div>
-        <div class="design right">
-          <div class="background"></div>
-          <div class="portfolio__container">
-            <h3>User23998</h3>
-            <p>Meet-up</p>
-            <div class="image">
-              <img src="{% static 'img/profile.jpg' %}" alt="" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    {% endfor %}
+  </div>
 </body>
 </html>

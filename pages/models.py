@@ -85,6 +85,7 @@ class Crop(models.Model):
     waterreq = models.TextField(db_column='waterReq', blank=True, null=True)  # Field name made lowercase.
     lightingreq = models.TextField(db_column='lightingReq', blank=True, null=True)  # Field name made lowercase.
     spacereq = models.TextField(db_column='spaceReq', blank=True, null=True)  # Field name made lowercase.
+    harvest = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -160,15 +161,27 @@ class LightingReading(models.Model):
 
 class Meetup(models.Model):
     postid = models.AutoField(db_column='postID', primary_key=True)  # Field name made lowercase.
+    title = models.CharField(max_length=255, blank=True, null=True)
     creatorid = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='creatorID', to_field='username')  # Field name made lowercase.
     location = models.CharField(max_length=255)
-    starttime = models.DateTimeField(db_column='startTime')  # Field name made lowercase.
-    endtime = models.DateTimeField(db_column='endTime', blank=True, null=True)  # Field name made lowercase.
+    starttime = models.TimeField(db_column='startTime', blank=True, null=True)  # Field name made lowercase.
+    date = models.DateField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'meetup'
+
+
+class MeetupComment(models.Model):
+    commentid = models.AutoField(db_column='commentID', primary_key=True)  # Field name made lowercase.
+    post = models.ForeignKey(Meetup, models.DO_NOTHING, db_column='post')
+    content = models.TextField(blank=True, null=True)
+    username = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='username', to_field='username', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'meetup_comment'
 
 
 class MoistureReading(models.Model):
