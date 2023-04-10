@@ -16,13 +16,14 @@
   .comment-section ul li{
     color: black;
     background-color: white;
+    border-style: groove;
   }
 </style>
 </head>
 <body>
   <header>
     <nav class="navbar">
-        <a href="index.html" class="nav-branding">FarmAssist</a>
+        <a href="{% url 'pages:home' %}" class="nav-branding">FarmAssist</a>
         <ul class="nav-menu">
             <li class="nav-item">
                 <a href="{% url 'pages:home' %}" class="nav-link">Home</a>
@@ -103,17 +104,17 @@
         <div class="popup-dialog">
            <section class="popup-content">
             <div class="popup-header">
-                <p>Connect with {{ i.username }} </p>
+                <p> {{ i.title }} </p>
                 <a href="#" class="popup-close">&times;</a>
             </div>
         
               <div class="popup-body">
-                <div class="popup-image"></div>
+                <div class="popup-image-event"></div>
                 <div class="popup-text">
-                <p>{{ i.title }}</p><br>
-                <p> <b>Location: </b>{{ i.location }}</p>
+                <p><b>Contact: </b>{{ i.creatorid.email }}</p>
+                <p><b>Location: </b>{{ i.location }}</p>
                 <p><b>About: </b>{{ i.description }}</p><br>
-                <p><b>Comments: </b></p><br>
+                <p><b>Comments: </b></p>
                 <div class="comment-section">
                   {% for k in comment %}
                   {% if k.post.postid == i.postid %}
@@ -148,6 +149,7 @@
       </div>
       <div class="container">
       {% for i in users %}
+        {% if not i.is_superuser %} 
         <div class="design">
           <div class="background"></div>
           <div class="portfolio__container">
@@ -172,18 +174,18 @@
               <div class="popup-body">
                 <div class="popup-image"></div>
                 <div class="popup-text">
-                <p><b>Name: </b> {{ i.first_name }}</p><br>
-                <p> <b>Email: </b>{{ i.email }}</p>
+                <p><b>Name: </b> {{ i.first_name }}</p>
+                <p> <b>Email: </b>{{ i.email }}</p><br>
                 <p><b>About: </b> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis saepe veritatis, velit ea ex sint, libero officiis repudiandae autem, praesentium consequatur atque, enim blanditiis aut consequuntur ad. Necessitatibus, iste, magnam.</p><br>
-                 <textarea class="field area" placeholder="Add a Comment..." required></textarea>
-                 <button type="submit" class="comment-btn">Comment</button>
             </div>
               </div>
                
            </section>
         </div>
     </div>
+    {% endif %} 
     {% endfor %}
   </div>
+  </section>
 </body>
 </html>

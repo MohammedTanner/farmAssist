@@ -17,6 +17,7 @@ def home(request):
     lighting_readings = LightingReading.objects.all().order_by('-time')
     humidity_readings = HumidityReading.objects.all().order_by('-time')
     product_crops = ProductCrop.objects.all()
+    slot1 = ProductCrop.objects.get(cropid=1)
     
     # for ordering or getting most recent TankReading.objects.all().order_by('-time')[:1]
     _context = {
@@ -26,12 +27,13 @@ def home(request):
 	    'lighting': lighting_readings,
 	    'humidity': humidity_readings,
 	    'crop': product_crops,
+	    'slot1': slot1,
 	}
     return render(request=request, template_name='home.html', context=_context)
 
 def connect(request):
     
-    meetups = Meetup.objects.all()
+    meetups = Meetup.objects.select_related('creatorid').all()
     comments = MeetupComment.objects.all()
     users = AuthUser.objects.all()
     _context = {

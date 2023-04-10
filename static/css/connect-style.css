@@ -141,6 +141,7 @@ ul {
   z-index: -1;
   left: -10px;
   top: -8px;
+  background-color: #04AA6D;
 }
 
 .right .background {
@@ -298,12 +299,20 @@ p {
     box-shadow: 0px 0px 19px 5px rgba(0, 0, 0, 0.19);
 }
 
-.popup-image{
+.popup-image-event{
     height: 100%;
     min-height: 375px;
-    background: url(../img/profile.jpg) no-repeat center;
+    background: url(../img/farmers.jpg) no-repeat center;
     background-size: cover;
 }
+
+.popup-image{
+  height: 100%;
+  min-height: 375px;
+  background: url(../img/profile.jpg) no-repeat center;
+  background-size: cover;
+}
+
 .popup-image img{
     margin: 10px;
 }
@@ -315,7 +324,7 @@ p {
 
 .popup1 {
     display:none;
-    background: rgba(0, 0, 0, .8);
+    background: white;
     position: fixed;
     left: 0;
     top: 0;
@@ -327,7 +336,7 @@ p {
 
 .popup2 {
     display:none;
-    background: rgba(0, 0, 0, .8);
+    background: #04AA6D;
     position: fixed;
     left: 0;
     top: 0;

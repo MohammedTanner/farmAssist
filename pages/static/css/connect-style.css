@@ -25,7 +25,6 @@ a{
 
 ul {
     margin-right: 20px;
-    color: red;
 }
 
 .container{
@@ -315,7 +314,7 @@ p {
 
 .popup1 {
     display:none;
-    background: rgba(0, 0, 0, .8);
+    background: #04AA6D;
     position: fixed;
     left: 0;
     top: 0;
@@ -327,7 +326,7 @@ p {
 
 .popup2 {
     display:none;
-    background: rgba(0, 0, 0, .8);
+    background: #04AA6D;
     position: fixed;
     left: 0;
     top: 0;

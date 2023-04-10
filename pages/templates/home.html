@@ -45,6 +45,7 @@
     margin-right: 5%;
 }
 
+
 h2{
     padding-bottom: 10px;
     margin-bottom: 10px;
@@ -64,7 +65,7 @@ h2{
 select {
     font-size: 1.5rem;
     padding 1em 5em 1em 1.5em;
-    background: #4d5061;
+    background: #04AA6D;
     color: white;
     border: 0;
 }
@@ -191,6 +192,10 @@ h2{
     padding-bottom: 10px;
     margin-bottom: 10px;
 }
+#main-text{
+    font-size: 30px;
+    text-align: center;
+}
 
 h2:after{
     content: '';
@@ -266,7 +271,7 @@ h2:after{
 <body>
 <header>
     <nav class="navbar">
-        <a href="index.html" class="nav-branding">FarmAssist</a>
+        <a href="{% url 'pages:home' %}" class="nav-branding">FarmAssist</a>
         <ul class="nav-menu">
             <li class="nav-item">
                 <a href="{% url 'pages:home' %}" class="nav-link">Home</a>
@@ -313,7 +318,7 @@ h2:after{
     {% csrf_token %}
      <h4>Change slot 1:</h4>
 <div class="custom-select" >
-  <select name="slot1">
+  <select name="slot1" placehorder="{{ slot1.type }}">
     <option value=0>Select produce:</option>
     <option value="Broccoli">Broccoli</option>
     <option value="Carrots">Carrots</option>
@@ -368,7 +373,7 @@ h2:after{
     <div class="row mt-4">
         <div class="col">
             <!--Table-->
-            <h2>Your Crops</h2>
+            <h2 id="main-text">Your Crops</h2>
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
