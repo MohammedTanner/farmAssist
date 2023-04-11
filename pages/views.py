@@ -107,7 +107,7 @@ def change_crops(request):
 		location = 1
 		updates = [request.POST.get("slot1"), request.POST.get("slot2"), request.POST.get("slot3"), request.POST.get("slot4")]
 		for update in updates:
-			if update == 0:
+			if update == "0":
 				location += 1
 				continue
 			else:
