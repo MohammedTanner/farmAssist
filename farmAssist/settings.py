@@ -20,7 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-p2uq%cxr%-1l!von734tlyivyh@*13k9d$(+k9yk*^fz_mu_xb'
+# Secret Key Removed for security reasons(Github upload)
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -78,14 +79,14 @@ WSGI_APPLICATION = 'farmAssist.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
+# Credentials removed for security reasons
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'farmAssist',
         'USER': 'python_django',
-        'PASSWORD': '123123Mo$',
-        'HOST': 'farmassist.cfeynesfcij3.us-east-1.rds.amazonaws.com',
+        'PASSWORD': '',
+        'HOST': '',
         'PORT': '3306'
     }
 }
